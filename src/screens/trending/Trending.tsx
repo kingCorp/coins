@@ -8,28 +8,16 @@
  * @format
  */
 
-import React, { useRef, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { useQuery } from 'react-query';
-import { fetchCoins, SearchCoins, trendCoins } from '../../queries/coins';
+import { trendCoins } from '../../queries/coins';
 import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackParams } from '../../navigation/homeNav';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack/lib/typescript/src/types';
 import TrendItem from '../../components/TrendItem/TrendItem';
-
-type Props = NativeStackScreenProps<any>;
 
 const Trending = () => {
   const [page, setPage] = useState(15);
-
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const { data, isError, isLoading, isSuccess, refetch } = useQuery('trends', trendCoins);
-
-  console.log(data?.data.coins);
 
   const renderItem = ({ item }: any) => (
     <TrendItem
